@@ -1,0 +1,32 @@
+[
+{
+
+},
+{
+
+},
+{
+    "Desejo": "i",
+    "Alergia": "i",
+    "Gestante": true,
+    "Problema_de_Pele": "i",
+    "Tratamento": true,
+    "Cirurgia": false
+},
+{
+	"Desejo": "",
+	"Alergia": "",
+	"Gestante": false,
+	"Problema_de_Pele": "",
+	"Tratamento": false,
+	"Cirurgia": false
+},
+{
+	"Desejo": "",
+	"Alergia": "",
+	"Gestante": false,
+	"Problema_de_Pele": "",
+	"Tratamento": false,
+	"Cirurgia": false
+}
+]
