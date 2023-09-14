@@ -3,7 +3,7 @@
 import json
 agenda= list()
 
-with open('Projeto\Cadastro_login.json', 'r', encoding= 'utf-8') as openfile:
+with open('Pronto/Cadastro_login.json', 'r', encoding= 'utf-8') as openfile:
     agenda= json.load(openfile)
 
 #Importando o PySimpleGUI:
@@ -22,17 +22,17 @@ def possui():
 def cadastro():
     layout= [
         [sg.Text('Cadastro')],
-        [sg.Text('Nome')],
+        [sg.Text('Nome', key='Nome')],
         [sg.InputText()],
-        [sg.Text('CPF')],
+        [sg.Text('CPF', key='CPF')],
         [sg.InputText()],
         [sg.Text('Celular')],
         [sg.InputText()],
         [sg.Text('Endereço')],
         [sg.InputText()],
         [sg.Text('Fuma'), sg.Checkbox('Sim', key= 'Fuma'), sg.Checkbox('Não', key= 'Não fuma')],
-        [sg.Text('Consumo de bebida alcóolicas'), sg.Checkbox('Sim', key= 'Bebida'), sg.Checkbox('Não', key= 'Não bebe')],
-        [sg.Text('Algum procedimento recente'), sg.Checkbox('Sim', key='Procedimento'), sg.Checkbox('Não', key= 'Procedimento')],
+        [sg.Text('Consumo de bebida alcóolicas'), sg.Checkbox('Sim', key= 'Bebe'), sg.Checkbox('Não', key= 'Não bebe')],
+        [sg.Text('Algum procedimento recente'), sg.Checkbox('Sim', key='Procedimento'), sg.Checkbox('Não', key= 'NProcedimento')],
         [sg.Button('Confirmar'), sg.Button('Cancel')]
     ]
     return sg.Window('Cadastro', layout= layout, finalize=True)
@@ -41,9 +41,9 @@ def cadastro():
 def login():
     layout=[
         [sg.Text('Login')],
-        [sg.Text('Nome')],
+        [sg.Text('Nome', key='Nome')],
         [sg.InputText()],
-        [sg.Text('CPF')],
+        [sg.Text('CPF', key='CPF')],
         [sg.InputText()],
         [sg.Button('Confirmar'), sg.Button('Cancel')]
     ]
@@ -61,7 +61,7 @@ while True:
     #JANELA1: Paciente não possui cadastro.
     if window== janela1 and event== 'Não possui':
         janela1.hide()
-        janela2= cadastro
+        janela2= cadastro()
     
     #JANELA1: Windows close.
     if window== janela1 and event== sg.WINDOW_CLOSED:
@@ -75,11 +75,12 @@ while True:
     #JANELA2: Cadastrando.
     if window== janela2 and event == 'Confirmar':
         janela2.hide()
-        agenda.append(dict( Nome= values[0], CPF= values[1], Celular= values[2], Endereço= values[3], Fuma= ['Fuma'], Bebida= ['Bebida'], Procedimento= ['Procedimento']))
-        with open('Projeto\Cadastro_login.json', 'a', encoding= 'utf-8') as openfile:
+        sg.popup('Informações corretas.')
+        agenda.append(dict( Nome= values[0], CPF= values[1], Celular= values[2], Endereço= values[3], Fuma= values['Fuma'] or values['Não fuma'], Bebida= values['Bebe'] or values['Não bebe'],
+                           Procedimento= values['Procedimento'] or values['NProcedimento'] ))
+        with open('Pronto/Cadastro_login.json', 'w', encoding= 'utf-8') as openfile:
             json.dump(agenda, openfile, ensure_ascii= False, indent= '\t')
         print(agenda)
-        break
     
     #JANELA2: Caso tenha clicado em não(janela1) sem querer.
     if window== janela2 and event== 'Cancel':
@@ -100,8 +101,8 @@ while True:
     if window== janela3 and event== 'Confirmar':
         janela3.hide()
         sg.popup('Informações corretas.')
-        agenda.append(dict( Nome= values[0], CPF= values[1]))
-        with open('Projeto\Cadastro_login.json', 'a', encoding= 'utf-8') as openfile:
+        agenda.append(dict( Nome= values['Nome'], CPF= values['CPF']))
+        with open('Pronto/Cadastro_login.json', 'w', encoding= 'utf-8') as openfile:
             json.dump(agenda, openfile, ensure_ascii= False, indent= '\t')
         print(agenda)
         break
