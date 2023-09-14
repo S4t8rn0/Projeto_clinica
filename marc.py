@@ -56,7 +56,7 @@ while True:
         #incluindo a hora e data do momento em que for acinado o botão:
         hora= dt.datetime.now() 
         #Salvando as informações em JSON:
-        marc.aapend(dict(Informação= hora.strftime('%d/%m/%Y - %H:%M'), Nome= values[0], Data= values[1], Horário= values[2]))
+        marc.append(dict(Informação= hora.strftime('%d/%m/%Y - %H:%M'), Nome= values[0], Data= values[1], Horário= values[2]))
         print(marc)
         sg.popup(f'Sua consulta foi agendada no dia {hora.day}/{hora.month}/{hora.year} às {hora.hour} : {hora.minute}.')
         with open('Projeto\marc.json', 'w', encoding= 'utf-8') as openfile:
