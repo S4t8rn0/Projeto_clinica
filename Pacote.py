@@ -46,11 +46,11 @@ while True:
     #JANELA6: Windows close.
     if window== janela6 and event== sg.WINDOW_CLOSED:
         sg.popup_yes_no('Tem certeza que deseja fechar?')
-        if event == 'Sim':
-            print('Ok')
+        if event in ('Yes'):
             break
-        if event == 'Não':
-            pacote()
+
+        if event in ('No'):
+            janela6()
 
 
     #JANELA7:
@@ -91,11 +91,11 @@ while True:
     #JANELA7: Windows close.
     if window== janela7 and event== sg.WINDOW_CLOSED:
         sg.popup_yes_no('Tem certeza que deseja fechar?')
-        if event in ('Sim'):
-            print('Ok')
+        if event in ('Yes'):
             break
-        if event in('não'):
-            janela7()
+
+        if event in('No'):
+            janela7.un_hide()
         
 
         
