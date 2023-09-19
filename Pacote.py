@@ -2,7 +2,7 @@ import json
 
 pacot= list()
 
-with open('Projeto\Pacote.json', 'r', encoding= 'utf-8') as openfile:
+with open('Pacote.json', 'r', encoding= 'utf-8') as openfile:
     pacot= json.load(openfile)
 
 import PySimpleGUI as sg
@@ -56,18 +56,18 @@ while True:
     #JANELA7:
     if window== janela7 and event == 'Confirmar':
         if values['Pequeno'] == True and values['Medio'] == False and values['Grande'] == False:       
-            pacot.append(dict(Pacote= values['Pequeno'] and 'Pequeno', Paciente= values[0]))
+            pacot.append(dict(Pacote= values['Pequeno'] and 'Pequeno', Paciente= values['nome']))
 
-            with open('Projeto\Pacote.json', 'w', encoding= 'utf-8') as openfile:
+            with open('Pacote.json', 'w', encoding= 'utf-8') as openfile:
                 json.dump(pacot, openfile, ensure_ascii= False, indent= '\t')
 
             sg.popup ('Seu pacote Pequeno com 3 sessões foi selecionado. Agora é só aproveita-ló.')    
             break
         
         elif values['Medio'] == True and values['Pequeno'] == False and values['Grande'] == False:
-            pacot.append(dict(Pacote= values['Medio'] and 'Médio', Paciente= values[0]))
+            pacot.append(dict(Paciente= values['nome'], Pacote= values['Medio'] and 'Médio'))
 
-            with open('Projeto\Pacote.json', 'w', encoding= 'utf-8') as openfile:
+            with open('Pacote.json', 'w', encoding= 'utf-8') as openfile:
                 json.dump(pacot, openfile, ensure_ascii= False, indent= '\t')
 
             sg.popup ('Seu pacote Médio com 6 sessões foi selecionado. Agora é só aproveita-ló.')
@@ -75,9 +75,9 @@ while True:
         
         elif values['Grande']== True and values['Medio'] == False and values['Pequeno'] == False:
             
-            pacot.append(dict(Pacote= values['Grande'] and 'Grande', Paciente= values[0]))
+            pacot.append(dict(Paciente= values['nome'], Pacote= values['Grande'] and 'Grande' ))
 
-            with open('Projeto\Pacote.json', 'w', encoding= 'utf-8') as openfile:
+            with open('Pacote.json', 'w', encoding= 'utf-8') as openfile:
                 json.dump(pacot, openfile, ensure_ascii= False, indent= '\t')
             
             sg.popup ('Seu pacote Grande com 10 sessões, uma saindo de graça, foi selecionado. Agora é só aproveita-ló.')
