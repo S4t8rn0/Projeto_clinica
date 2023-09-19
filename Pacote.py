@@ -10,15 +10,16 @@ import PySimpleGUI as sg
 def desejo():
     layout= [
         [sg.Text('Pacotes')],
-        [sg.Text('Nome'), sg.InputText()],
         [sg.Text('Deseja olhar os pacotes de procedimento?')],
         [sg.Button('Sim'), sg.Button('Não')]
         ]
     return sg.Window('Pacote', layout= layout, finalize= True)
+    return 'Nome'
 
 def pacote():
     layout= [
         [sg.Text('Pacotes')],
+        [sg.Text('Nome'), sg.InputText(k='nome')],
         [sg.Text('Temos os seguintes tamanhos dos pacotes:')],
         [sg.Text('P- 3 sessões/aplicações')], 
         [sg.Text('M- 6 sessões/aplicações')],
@@ -45,17 +46,17 @@ while True:
     #JANELA6: Windows close.
     if window== janela6 and event== sg.WINDOW_CLOSED:
         sg.popup_yes_no('Tem certeza que deseja fechar?')
-        if event in ('Sim'):
+        if event == 'Sim':
             print('Ok')
             break
-        if event in('não'):
-            janela6()
+        if event == 'Não':
+            pacote()
 
 
     #JANELA7:
     if window== janela7 and event == 'Confirmar':
         if values['Pequeno'] == True and values['Medio'] == False and values['Grande'] == False:       
-            pacot.append(dict(Nome= values[0], Pacote= values['Pequeno']))
+            pacot.append(dict(Pacote= values['Pequeno'] and 'Pequeno', Paciente= values[0]))
 
             with open('Projeto\Pacote.json', 'w', encoding= 'utf-8') as openfile:
                 json.dump(pacot, openfile, ensure_ascii= False, indent= '\t')
@@ -64,7 +65,7 @@ while True:
             break
         
         elif values['Medio'] == True and values['Pequeno'] == False and values['Grande'] == False:
-            pacot.append(dict(Nome= values[0], Pacote= values['Medio']))
+            pacot.append(dict(Pacote= values['Medio'] and 'Médio', Paciente= values[0]))
 
             with open('Projeto\Pacote.json', 'w', encoding= 'utf-8') as openfile:
                 json.dump(pacot, openfile, ensure_ascii= False, indent= '\t')
@@ -74,7 +75,7 @@ while True:
         
         elif values['Grande']== True and values['Medio'] == False and values['Pequeno'] == False:
             
-            pacot.append(dict(Nome= values[0], Pacote= values['Grande']))
+            pacot.append(dict(Pacote= values['Grande'] and 'Grande', Paciente= values[0]))
 
             with open('Projeto\Pacote.json', 'w', encoding= 'utf-8') as openfile:
                 json.dump(pacot, openfile, ensure_ascii= False, indent= '\t')
